@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate — NYC Impact Volleyball Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #f0ede6; overflow-x: hidden; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; border-bottom: 1px solid rgba(240,237,230,0.1); background: rgba(10,10,10,0.94); backdrop-filter: blur(10px); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.12em; color: #f0ede6; text-decoration: none; }
+.nav-logo span { color: #E8531A; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #f0ede6; }
+.nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; background: #E8531A; color: #fff; text-decoration: none; }
+.nav-item { position: relative; }
+.nav-item.has-dropdown > a::after { content: ''; display: inline-block; margin-left: 5px; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; opacity: 0.5; }
+.nav-item.has-dropdown:hover > a::after { transform: rotate(225deg) translateY(1px); }
+.nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px); min-width: 240px; background: #0f0f0f; border: 1px solid rgba(240,237,230,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; padding: 8px 0; z-index: 300; }
+.nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dropdown::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+.nav-dropdown a { display: block; padding: 11px 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: background 0.15s, color 0.15s, padding-left 0.15s; border-left: 2px solid transparent; }
+.nav-dropdown a:hover { background: rgba(232,83,26,0.08); color: #f0ede6; border-left-color: #E8531A; padding-left: 24px; }
+.nav-item.current > a { color: #f0ede6; }
+.nav-dropdown a.current { color: #f0ede6; border-left-color: #E8531A; }
+.nav-cta.current { background: #c94215; }
+
+/* SHARED BUTTONS */
+.btn-primary { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: #E8531A; color: #fff; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; border: none; cursor: pointer; }
+.btn-primary:hover { background: #c94215; transform: translateY(-2px); }
+.btn-ghost { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: transparent; color: rgba(240,237,230,0.7); border: 1px solid rgba(240,237,230,0.22); text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: rgba(240,237,230,0.6); color: #f0ede6; }
+.btn-white { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 32px; background: #f0ede6; color: #0a0a0a; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; border: none; cursor: pointer; }
+.btn-white:hover { background: #fff; transform: translateY(-2px); }
+
+/* GIVE HERO */
+.give-hero { position: relative; min-height: 78vh; overflow: hidden; display: flex; align-items: flex-end; }
+.give-hero-bg { position: absolute; inset: 0; }
+.give-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: brightness(0.4) saturate(0.8); }
+.give-hero-grad { position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.5) 42%, rgba(10,10,10,0.1) 100%); }
+.give-hero-content { position: relative; z-index: 2; padding: 0 48px 80px; width: 100%; }
+.give-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.give-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 8vw, 104px); line-height: 0.9; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 26px; }
+.give-headline em { font-style: normal; color: #E8531A; }
+.give-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(240,237,230,0.65); max-width: 480px; margin-bottom: 36px; }
+.give-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+.give-stats-bar { display: flex; border: 1px solid rgba(240,237,230,0.12); max-width: 640px; }
+.give-stat { flex: 1; padding: 20px 16px; border-right: 1px solid rgba(240,237,230,0.12); text-align: center; background: rgba(10,10,10,0.65); backdrop-filter: blur(8px); }
+.give-stat:last-child { border-right: none; }
+.give-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.05em; color: #f0ede6; display: block; }
+.give-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.38); display: block; margin-top: 3px; }
+
+/* MARQUEE */
+.marquee-wrap { background: #E8531A; padding: 14px 0; overflow: hidden; white-space: nowrap; }
+.marquee-inner { display: inline-block; animation: marquee 24s linear infinite; }
+.marquee-item { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.15em; color: #fff; padding: 0 30px; }
+.marquee-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.45); vertical-align: middle; margin: 0 4px; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* WHY GIVE */
+.why-give { padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.why-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 22px; }
+.why-headline { font-family: 'Bebas Neue', sans-serif; font-size: 60px; line-height: 0.93; letter-spacing: 0.03em; color: #f0ede6; margin-bottom: 22px; }
+.why-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.58); }
+.why-body + .why-body { margin-top: 16px; }
+.why-pillars { display: flex; flex-direction: column; gap: 1px; }
+.why-pillar { padding: 28px 32px; border: 1px solid rgba(240,237,230,0.08); display: flex; gap: 20px; align-items: flex-start; transition: background 0.25s; }
+.why-pillar:hover { background: rgba(240,237,230,0.04); }
+.why-pillar-icon { flex-shrink: 0; width: 40px; height: 40px; border: 1px solid rgba(232,83,26,0.35); display: flex; align-items: center; justify-content: center; }
+.why-pillar-icon svg { width: 20px; height: 20px; stroke: #E8531A; fill: none; stroke-width: 1.6; }
+.why-pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.06em; color: #f0ede6; margin-bottom: 6px; }
+.why-pillar-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.48); }
+@media (max-width: 900px) { .why-give { grid-template-columns: 1fr; gap: 48px; } }
+
+/* TIERS */
+.tiers { padding: 100px 48px; background: #0d0d0d; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.tiers-header { max-width: 640px; margin: 0 auto 56px; text-align: center; }
+.tiers-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 16px; }
+.tiers-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 58px); line-height: 0.95; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 18px; }
+.tiers-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.55); }
+.tiers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(240,237,230,0.08); max-width: 1160px; margin: 0 auto; }
+.tier-card { background: #0a0a0a; padding: 36px 26px; display: flex; flex-direction: column; gap: 14px; transition: background 0.25s; }
+.tier-card:hover { background: #131313; }
+.tier-amount { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: #E8531A; }
+.tier-label { font-size: 13px; font-weight: 500; color: #f0ede6; letter-spacing: 0.02em; line-height: 1.3; min-height: 34px; }
+.tier-desc { font-size: 12px; font-weight: 300; line-height: 1.6; color: rgba(240,237,230,0.42); flex-grow: 1; }
+.tier-btn { margin-top: 4px; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 0; text-align: center; background: transparent; color: rgba(240,237,230,0.7); border: 1px solid rgba(240,237,230,0.22); text-decoration: none; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.tier-btn:hover { background: #E8531A; border-color: #E8531A; color: #fff; }
+.tier-card.tier-scholarship { background: linear-gradient(160deg, #1a0d05 0%, #0a0a0a 70%); }
+.tier-scholarship .tier-amount { color: #f0ede6; }
+.tier-badge { display: inline-block; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; background: rgba(232,83,26,0.14); border: 1px solid rgba(232,83,26,0.32); color: #E8531A; width: fit-content; }
+@media (max-width: 900px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* IN-KIND */
+.inkind { padding: 90px 48px; background: #0a0a0a; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.inkind-header { margin-bottom: 48px; max-width: 560px; }
+.inkind-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.inkind-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 18px; }
+.inkind-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.55); }
+.inkind-groups { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2px; background: rgba(240,237,230,0.08); }
+.inkind-group { background: #0d0d0d; padding: 40px; }
+.inkind-group-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.08em; color: #E8531A; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(240,237,230,0.08); }
+.inkind-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.inkind-list li { font-size: 13px; font-weight: 400; color: rgba(240,237,230,0.7); display: flex; align-items: center; gap: 12px; }
+.inkind-list li::before { content: ''; width: 6px; height: 6px; flex-shrink: 0; background: #E8531A; }
+.inkind-contact-line { display: flex; flex-direction: column; gap: 20px; }
+.inkind-contact-item { display: flex; flex-direction: column; gap: 4px; }
+.inkind-contact-label { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.4); }
+.inkind-contact-value { font-size: 15px; font-weight: 500; color: #f0ede6; }
+.inkind-contact-value a { color: #f0ede6; text-decoration: none; }
+.inkind-contact-value a:hover { color: #E8531A; }
+@media (max-width: 800px) { .inkind-groups { grid-template-columns: 1fr; } }
+
+/* WAYS TO GIVE */
+.ways { padding: 100px 48px; background: #0d0d0d; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.ways-header { text-align: center; max-width: 560px; margin: 0 auto 56px; }
+.ways-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 16px; }
+.ways-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 52px); line-height: 0.95; letter-spacing: 0.02em; color: #f0ede6; }
+.ways-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(240,237,230,0.08); max-width: 1100px; margin: 0 auto; }
+.way-card { background: #0a0a0a; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px; }
+.way-num { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #E8531A; opacity: 0.4; }
+.way-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.05em; color: #f0ede6; }
+.way-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.5); flex-grow: 1; }
+.way-detail { font-size: 13px; font-weight: 500; color: rgba(240,237,230,0.8); line-height: 1.6; }
+@media (max-width: 900px) { .ways-grid { grid-template-columns: 1fr; } }
+
+/* CTA BANNER */
+.give-cta { padding: 80px 48px; background: #E8531A; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; }
+.give-cta-headline { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 0.9; letter-spacing: 0.02em; color: #fff; }
+.give-cta-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.78); margin-top: 16px; max-width: 420px; line-height: 1.75; }
+.give-cta-btns { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+.btn-wh-solid { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: #fff; color: #E8531A; text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: background 0.2s; }
+.btn-wh-solid:hover { background: #f0f0f0; }
+.btn-outline-wh { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: border-color 0.2s; }
+.btn-outline-wh:hover { border-color: #fff; }
+@media (max-width: 700px) { .give-cta { grid-template-columns: 1fr; } }
+
+/* LEGAL LINE */
+.legal-note { padding: 28px 48px; text-align: center; font-size: 11px; color: rgba(240,237,230,0.35); letter-spacing: 0.03em; border-bottom: 1px solid rgba(240,237,230,0.06); }
+
+/* FOOTER */
+.footer-main { padding: 56px 48px 32px; border-top: 1px solid rgba(240,237,230,0.07); display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; color: #f0ede6; margin-bottom: 12px; }
+.footer-logo span { color: #E8531A; }
+.footer-tagline { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.36); line-height: 1.75; max-width: 220px; }
+.footer-col-title { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.32); margin-bottom: 16px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.52); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #f0ede6; }
+.footer-bottom { padding: 20px 48px; border-top: 1px solid rgba(240,237,230,0.06); display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10px; color: rgba(240,237,230,0.26); letter-spacing: 0.05em; }
+.social-row { display: flex; gap: 18px; }
+.social-row a { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.36); text-decoration: none; transition: color 0.2s; }
+.social-row a:hover { color: #E8531A; }
+
+/* MOTION */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-visible > * { transition-delay: calc(var(--i, 0) * 80ms); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger.is-visible > * { transition: none !important; opacity: 1 !important; transform: none !important; }
+  .marquee-inner { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">NYC<span> IMPACT</span></a>
+  <ul class="nav-links">
+    <li class="nav-item"><a href="index.html">Home</a></li>
+    <li class="nav-item has-dropdown">
+      <a href="about-us.html">About Us</a>
+      <div class="nav-dropdown">
+        <a href="about-us.html">About Us</a>
+        <a href="support-us.html">Support Us</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="events.html">Events</a>
+      <div class="nav-dropdown">
+        <a href="open-gym.html">Open Gym</a>
+        <a href="chinatown-classic.html">Chinatown Classic</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="nacivt.html">NACIVT</a>
+      <div class="nav-dropdown">
+        <a href="nacivt-9man-tryouts.html">9-Man Tryouts</a>
+        <a href="nacivt-women-tryouts.html">Women Tryouts</a>
+        <a href="nacivt-fundraiser.html">Program Fundraiser</a>
+        <a href="9-man.html">9-Man</a>
+        <a href="booming-impact.html">Booming Impact</a>
+        <a href="dynamic-impact.html">Dynamic Impact</a>
+        <a href="synergy-impact.html">Synergy Impact</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="boys-volleyball.html">Boys</a>
+      <div class="nav-dropdown">
+        <a href="boys-tryout.html">Tryout Registration</a>
+        <a href="boys-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="boys-season-info.html">Season Info &amp; Fees</a>
+        <a href="pay-club-fee.html">Make A Payment</a>
+        <a href="aau-nationals.html">AAU Jr Nationals</a>
+        <a href="coaches-directory.html">Coaches Directory</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="girls-volleyball.html">Girls</a>
+      <div class="nav-dropdown">
+        <a href="girls-tryouts.html">Tryout Registration</a>
+        <a href="girls-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="girls-season-info.html">Season Info &amp; Fees</a>
+        <a href="tryout-checklist.html">Tryout Check List</a>
+        <a href="girls-practice-schedule.html">Practice Schedule</a>
+        <a href="payment.html">Make A Payment</a>
+        <a href="tournament-schedule.html">Tournament Schedule</a>
+        <a href="team-14u-black.html">14U Black</a>
+        <a href="team-15u-black.html">15U Black</a>
+        <a href="team-16u-black.html">16U Black</a>
+        <a href="team-17u-orange.html">17U Orange</a>
+        <a href="team-17u-black.html">17U Black</a>
+        <a href="chaperone.html">Chaperone Guide</a>
+        <a href="travel-policy.html">Travel Policy</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="programs.html">Programs</a>
+      <div class="nav-dropdown">
+        <a href="volley-kids.html">Volley Kids</a>
+        <a href="geva-developmental.html">GEVA Developmental Team</a>
+        <a href="private-lesson.html">Private Lesson</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="resources.html">Resources</a>
+      <div class="nav-dropdown">
+        <a href="mental-health-support.html">Mental Health Support</a>
+        <a href="incident.html">Incident Report</a>
+        <a href="forms.html">Forms</a>
+        <a href="usav-registration.html">USA Volleyball Registration</a>
+        <a href="safesport.html">SafeSport</a>
+        <a href="guides-for-parent.html">Guides for Parent</a>
+        <a href="club-policy.html">Club Policy</a>
+        <a href="covid-illness-injury.html">COVID/Illness/Injury</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="contact-us.html">Contact</a></li>
+  </ul>
+  <a href="donations.html" class="nav-cta current">Donate</a>
+</nav>
+
+<section class="give-hero">
+  <div class="give-hero-bg">
+    <img src="113-DSC_9424.jpg" alt="NYC Impact athlete spiking over blockers">
+  </div>
+  <div class="give-hero-grad"></div>
+  <div class="give-hero-content">
+    <div class="give-eyebrow">Support NYC Impact &middot; 501(c)(3) Nonprofit</div>
+    <h1 class="give-headline">Give Where<br>It <em>Lands.</em></h1>
+    <p class="give-sub">NYC Impact is a 501(c)(3) nonprofit &mdash; every gift is tax-deductible and goes straight toward equipment, tournament fees, and scholarships that keep the game accessible across all five boroughs.</p>
+    <div class="give-actions">
+      <a href="#tiers" class="btn-primary">Give Now</a>
+      <a href="#inkind" class="btn-ghost">In-Kind Donations</a>
+    </div>
+    <div class="give-stats-bar">
+      <div class="give-stat"><span class="give-stat-num" data-count="100" data-suffix="%">0</span><span class="give-stat-label">To Programs</span></div>
+      <div class="give-stat"><span class="give-stat-num">501(c)(3)</span><span class="give-stat-label">Nonprofit</span></div>
+      <div class="give-stat"><span class="give-stat-num" data-count="14">0</span><span class="give-stat-label">Years Running</span></div>
+      <div class="give-stat"><span class="give-stat-num" data-count="6">0</span><span class="give-stat-label">Boroughs Reached</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item">100% Goes To Programs</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Tax-Deductible Giving</span><span class="marquee-dot"></span>
+    <span class="marquee-item">501(c)(3) Nonprofit</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Scholarships Available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">In-Kind Donations Welcome</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Every Gift Counts</span><span class="marquee-dot"></span>
+    <span class="marquee-item">100% Goes To Programs</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Tax-Deductible Giving</span><span class="marquee-dot"></span>
+    <span class="marquee-item">501(c)(3) Nonprofit</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Scholarships Available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">In-Kind Donations Welcome</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Every Gift Counts</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+<section class="why-give reveal">
+  <div>
+    <div class="why-tag">Why It Matters</div>
+    <h2 class="why-headline">More Kids<br>On The Court.</h2>
+    <p class="why-body">NYC Impact focuses on the personal and athletic development of young athletes across the city &mdash; building a safe, positive environment where student-athletes chase individual excellence inside a team setting.</p>
+    <p class="why-body">Membership fees only cover part of what it takes to run six programs at a competitive level. Donations close that gap &mdash; funding the equipment, travel, and scholarships that keep the door open for families who couldn't otherwise afford to play.</p>
+  </div>
+  <div class="why-pillars">
+    <div class="why-pillar">
+      <div class="why-pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 19V9M12 19V5M18 19v-7"/></svg></div>
+      <div><div class="why-pillar-title">Access</div><p class="why-pillar-desc">Full and half scholarships so membership cost never decides who gets to play.</p></div>
+    </div>
+    <div class="why-pillar">
+      <div class="why-pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></div>
+      <div><div class="why-pillar-title">Equipment</div><p class="why-pillar-desc">Balls, carts, net systems, and medical supplies that keep practices running safely.</p></div>
+    </div>
+    <div class="why-pillar">
+      <div class="why-pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M4 20L20 4"/></svg></div>
+      <div><div class="why-pillar-title">Competition</div><p class="why-pillar-desc">Tournament entry fees and travel costs for local, regional, and national play.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tiers reveal" id="tiers">
+  <div class="tiers-header">
+    <div class="tiers-tag">Give A Gift That Fits</div>
+    <h2 class="tiers-title">Every Amount<br>Funds Something Real.</h2>
+    <p class="tiers-body">100% of monetary and equipment donations go directly toward the program &mdash; nothing is too large or too small.</p>
+  </div>
+  <div class="tiers-grid reveal-stagger">
+    <div class="tier-card reveal" style="--i:0">
+      <div class="tier-amount">$60</div>
+      <div class="tier-label">A Game Volleyball</div>
+      <p class="tier-desc">Replaces a worn-out ball for daily practice.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:1">
+      <div class="tier-amount">$150</div>
+      <div class="tier-label">A Volleyball Cart</div>
+      <p class="tier-desc">Keeps gear organized and practices moving.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:2">
+      <div class="tier-amount">$250</div>
+      <div class="tier-label">A Local Tournament</div>
+      <p class="tier-desc">Covers entry fees for a regional competition.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:3">
+      <div class="tier-amount">$500</div>
+      <div class="tier-label">A Team's Jerseys</div>
+      <p class="tier-desc">Outfits a full roster for the season.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:4">
+      <div class="tier-amount">$600</div>
+      <div class="tier-label">Medical Supplies</div>
+      <p class="tier-desc">Stocks first-aid and athletic training kits.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:5">
+      <div class="tier-amount">$1,000</div>
+      <div class="tier-label">A National Tournament</div>
+      <p class="tier-desc">Sends a team to compete on the national stage.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card reveal" style="--i:6">
+      <div class="tier-amount">$2,500</div>
+      <div class="tier-label">An Indoor Net System</div>
+      <p class="tier-desc">A full net system for training and home matches.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+    <div class="tier-card tier-scholarship reveal" style="--i:7">
+      <span class="tier-badge">Scholarship</span>
+      <div class="tier-amount">$2,400</div>
+      <div class="tier-label">Half Membership</div>
+      <p class="tier-desc">Covers half a season for a family in need.</p>
+      <a href="https://www.nycimpact.com/donations" class="tier-btn" target="_blank" rel="noopener">Give This</a>
+    </div>
+  </div>
+</section>
+
+<section class="inkind reveal" id="inkind">
+  <div class="inkind-header">
+    <div class="inkind-tag">Beyond Cash</div>
+    <h2 class="inkind-title">In-Kind<br>Donations.</h2>
+    <p class="inkind-body">New or gently used gear goes straight back onto the court. If you'd rather donate equipment than cash, here's what helps most.</p>
+  </div>
+  <div class="inkind-groups">
+    <div class="inkind-group">
+      <div class="inkind-group-title">What We Accept</div>
+      <ul class="inkind-list">
+        <li>New or used volleyballs</li>
+        <li>Volleyball carts</li>
+        <li>Training equipment</li>
+        <li>Ball bags</li>
+        <li>First aid kits</li>
+        <li>Player apparel &mdash; jackets, jerseys, t-shirts</li>
+        <li>Indoor net systems</li>
+      </ul>
+    </div>
+    <div class="inkind-group">
+      <div class="inkind-group-title">Arrange A Drop-Off</div>
+      <div class="inkind-contact-line">
+        <div class="inkind-contact-item">
+          <span class="inkind-contact-label">Call Or Text</span>
+          <span class="inkind-contact-value"><a href="tel:19178303979">917&ndash;830&ndash;3979</a></span>
+        </div>
+        <div class="inkind-contact-item">
+          <span class="inkind-contact-label">Or</span>
+          <span class="inkind-contact-value"><a href="contact-us.html">Reach Out Through Contact</a></span>
+        </div>
+        <p class="tier-desc">We'll coordinate pickup or drop-off directly with your team or club.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ways reveal">
+  <div class="ways-header">
+    <div class="ways-tag">Three Ways In</div>
+    <h2 class="ways-title">However Works For You.</h2>
+  </div>
+  <div class="ways-grid reveal-stagger">
+    <div class="way-card reveal" style="--i:0">
+      <div class="way-num">01</div>
+      <div class="way-title">Online</div>
+      <p class="way-desc">Give securely by card or PayPal in under a minute. Tax receipts are sent automatically.</p>
+      <a href="https://www.nycimpact.com/donations" class="btn-white" target="_blank" rel="noopener" style="align-self:flex-start;">Donate Online</a>
+    </div>
+    <div class="way-card reveal" style="--i:1">
+      <div class="way-num">02</div>
+      <div class="way-title">By Mail</div>
+      <p class="way-desc">Prefer a check? Make it out to NYC Impact Sports, Inc. and mail it to:</p>
+      <p class="way-detail">NYC Impact Sports, Inc.<br>6029 Putnam Avenue<br>Ridgewood, NY 11385</p>
+    </div>
+    <div class="way-card reveal" style="--i:2">
+      <div class="way-num">03</div>
+      <div class="way-title">In-Kind</div>
+      <p class="way-desc">Donate equipment or gear directly &mdash; see the accepted items above.</p>
+      <p class="way-detail">Call or text <a href="tel:19178303979" style="color:#f0ede6;">917&ndash;830&ndash;3979</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="give-cta">
+  <div>
+    <h2 class="give-cta-headline">Ready To<br>Make An<br>Impact?</h2>
+    <p class="give-cta-sub">Every gift, no matter the size, keeps a kid on the court. Thank you for being part of it.</p>
+  </div>
+  <div class="give-cta-btns">
+    <a href="https://www.nycimpact.com/donations" class="btn-wh-solid" target="_blank" rel="noopener">Donate Now</a>
+    <a href="contact-us.html" class="btn-outline-wh">Contact Us</a>
+  </div>
+</section>
+
+<div class="legal-note">NYC Impact Volleyball Club is a 501(c)(3) nonprofit organization. All contributions are tax-deductible to the extent allowed by law.</div>
+
+<div class="footer-main">
+  <div>
+    <div class="footer-logo">NYC<span> IMPACT</span></div>
+    <p class="footer-tagline">A nonprofit urban volleyball club building athletes and community across New York City since 2011.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Boys</div>
+    <ul class="footer-links">
+      <li><a href="boys-volleyball.html">Program Overview</a></li>
+      <li><a href="boys-tryout.html">Tryout Registration</a></li>
+      <li><a href="boys-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="coaches-directory.html">Coaches Directory</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Girls</div>
+    <ul class="footer-links">
+      <li><a href="girls-volleyball.html">Program Overview</a></li>
+      <li><a href="girls-tryouts.html">Tryout Registration</a></li>
+      <li><a href="girls-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="tournament-schedule.html">Tournament Schedule</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Club</div>
+    <ul class="footer-links">
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
+      <li><a href="donations.html">Donate</a></li>
+    </ul>
+  </div>
+</div>
+<div class="footer-bottom">
+  <span class="footer-copy">&copy; 2026 NYC Impact Sports Inc. All rights reserved.</span>
+  <div class="social-row">
+    <a href="https://www.facebook.com/pages/Impact-Volleyball-Club-NYC/180746462017160" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/nycimpact/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/user/ImpactVB" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
+
+<script>
+// Scroll reveal
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('is-visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  items.forEach(el => io.observe(el));
+})();
+
+// Animated counters
+(function() {
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-count]');
+  if (!counters.length) return;
+  if (!('IntersectionObserver' in window)) { counters.forEach(animateCount); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => io.observe(el));
+})();
+</script>
+
+</body>
+</html>
