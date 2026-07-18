@@ -1,0 +1,522 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make A Payment — NYC Impact Volleyball Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #f0ede6; overflow-x: hidden; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; border-bottom: 1px solid rgba(240,237,230,0.1); background: rgba(10,10,10,0.94); backdrop-filter: blur(10px); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.12em; color: #f0ede6; text-decoration: none; }
+.nav-logo span { color: #E8531A; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #f0ede6; }
+.nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; background: #E8531A; color: #fff; text-decoration: none; }
+
+/* HERO */
+.hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; display: flex; align-items: flex-end; }
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg video { width: 100%; height: 100%; object-fit: cover; object-position: center 50%; filter: brightness(0.42) saturate(0.8); }
+.hero-grad { position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.05) 100%); }
+.hero-grad-left { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,0.75) 0%, transparent 65%); }
+.hero-content { position: relative; z-index: 2; padding: 0 48px 0 48px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: flex-end; gap: 0; }
+.hero-text { padding-bottom: 80px; }
+.hero-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 9vw, 112px); line-height: 0.9; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 28px; }
+.hero-headline em { font-style: normal; color: #E8531A; }
+.hero-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(240,237,230,0.65); max-width: 380px; margin-bottom: 38px; }
+.hero-actions { display: flex; gap: 14px; align-items: center; }
+.btn-primary { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: #E8531A; color: #fff; text-decoration: none; display: inline-block; transition: background 0.2s; }
+.btn-primary:hover { background: #c94215; }
+.btn-ghost { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: transparent; color: rgba(240,237,230,0.7); border: 1px solid rgba(240,237,230,0.22); text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: rgba(240,237,230,0.6); color: #f0ede6; }
+.hero-stats { display: flex; flex-direction: column; justify-content: flex-end; }
+.hero-stats-bar { display: flex; border: 1px solid rgba(240,237,230,0.12); border-bottom: none; }
+.hero-stat { flex: 1; padding: 20px 16px; border-right: 1px solid rgba(240,237,230,0.12); text-align: center; background: rgba(10,10,10,0.65); backdrop-filter: blur(8px); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.05em; color: #f0ede6; display: block; }
+.hero-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.38); display: block; margin-top: 3px; }
+.scroll-hint { position: absolute; bottom: 96px; left: 48px; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.scroll-line { width: 1px; height: 40px; background: rgba(240,237,230,0.15); position: relative; overflow: hidden; }
+.scroll-line::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: #E8531A; animation: scrolldown 1.8s ease-in-out infinite; }
+@keyframes scrolldown { 0%{top:-100%} 100%{top:100%} }
+.scroll-text { font-size: 8px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.28); writing-mode: vertical-lr; transform: rotate(180deg); }
+
+/* MARQUEE */
+.marquee-wrap { background: #E8531A; padding: 14px 0; overflow: hidden; white-space: nowrap; }
+.marquee-inner { display: inline-block; animation: marquee 22s linear infinite; }
+.marquee-item { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.15em; color: #fff; padding: 0 30px; }
+.marquee-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.45); vertical-align: middle; margin: 0 4px; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+
+
+/* MISSION */
+.mission { padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.mission-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 22px; }
+.mission-headline { font-family: 'Bebas Neue', sans-serif; font-size: 68px; line-height: 0.93; letter-spacing: 0.03em; color: #f0ede6; margin-bottom: 22px; }
+.mission-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.58); }
+.mission-pillars { display: flex; flex-direction: column; gap: 1px; }
+.pillar { padding: 28px 32px; border: 1px solid rgba(240,237,230,0.08); display: flex; gap: 20px; align-items: flex-start; transition: background 0.25s; cursor: default; }
+.pillar:hover { background: rgba(240,237,230,0.04); }
+.pillar-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: #E8531A; opacity: 0.35; flex-shrink: 0; }
+.pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.06em; color: #f0ede6; margin-bottom: 6px; }
+.pillar-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.48); }
+
+/* ACHIEVEMENT */
+.achievement { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; margin: 2px 0; }
+.achievement-img { position: relative; overflow: hidden; }
+.achievement-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.72) saturate(0.85); transition: transform 0.8s ease; }
+.achievement-img:hover img { transform: scale(1.03); }
+.achievement-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, transparent 55%, #0a0a0a 100%); }
+.achievement-content { background: #0d0d0d; padding: 64px 52px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(240,237,230,0.06); }
+.achievement-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.achievement-headline { font-family: 'Bebas Neue', sans-serif; font-size: 60px; line-height: 0.92; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 22px; }
+.achievement-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 14px; background: rgba(232,83,26,0.14); border: 1px solid rgba(232,83,26,0.32); color: #E8531A; margin-bottom: 24px; }
+.achievement-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.52); max-width: 340px; margin-bottom: 36px; }
+.btn-white { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 32px; background: #f0ede6; color: #0a0a0a; text-decoration: none; display: inline-block; transition: background 0.2s; }
+.btn-white:hover { background: #fff; }
+
+/* TRYOUTS */
+.tryouts { padding: 80px 48px; background: #E8531A; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; margin: 2px 0; }
+.tryouts-headline { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 0.9; letter-spacing: 0.02em; color: #fff; }
+.tryouts-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.78); margin-top: 16px; max-width: 420px; line-height: 1.75; }
+.tryouts-btns { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+.btn-wh-solid { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: #fff; color: #E8531A; text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: background 0.2s; }
+.btn-wh-solid:hover { background: #f0f0f0; }
+.btn-outline-wh { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: border-color 0.2s; }
+.btn-outline-wh:hover { border-color: #fff; }
+
+/* FOOTER */
+.footer-main { padding: 56px 48px 32px; border-top: 1px solid rgba(240,237,230,0.07); display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; color: #f0ede6; margin-bottom: 12px; }
+.footer-logo span { color: #E8531A; }
+.footer-tagline { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.36); line-height: 1.75; max-width: 220px; }
+.footer-col-title { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.32); margin-bottom: 16px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.52); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #f0ede6; }
+.footer-bottom { padding: 20px 48px; border-top: 1px solid rgba(240,237,230,0.06); display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10px; color: rgba(240,237,230,0.26); letter-spacing: 0.05em; }
+.social-row { display: flex; gap: 18px; }
+.social-row a { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.36); text-decoration: none; transition: color 0.2s; }
+.social-row a:hover { color: #E8531A; }
+
+/* SLIDESHOW */
+.slideshow-section { margin: 2px 0; background: #0d0d0d; border-top: 1px solid rgba(240,237,230,0.07); border-bottom: 1px solid rgba(240,237,230,0.07); }
+.slideshow-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 48px 48px 32px; align-items: end; }
+.slideshow-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.slideshow-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; }
+.slideshow-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.52); margin-bottom: 24px; max-width: 380px; }
+.slideshow-controls { display: flex; align-items: center; gap: 16px; }
+.slide-btn { width: 40px; height: 40px; border: 1px solid rgba(240,237,230,0.18); background: transparent; color: rgba(240,237,230,0.7); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.slide-btn:hover { background: rgba(240,237,230,0.08); border-color: rgba(240,237,230,0.4); color: #f0ede6; }
+.slide-counter { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: rgba(240,237,230,0.4); min-width: 40px; text-align: center; }
+.slideshow-track-wrap { overflow: hidden; width: 100%; position: relative; }
+.slideshow-track { display: flex; transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.slide { flex: 0 0 100%; position: relative; height: 520px; overflow: hidden; }
+.slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.82) saturate(0.92); transition: transform 0.8s ease; }
+.slide.active img { transform: scale(1.02); }
+.slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, transparent 50%); }
+.slide-label { position: absolute; bottom: 24px; left: 48px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.12em; color: rgba(240,237,230,0.8); z-index: 2; }
+.slideshow-dots { display: flex; justify-content: center; gap: 8px; padding: 20px 0 28px; }
+.dot { width: 24px; height: 2px; background: rgba(240,237,230,0.2); cursor: pointer; transition: background 0.3s, width 0.3s; }
+.dot.active { background: #E8531A; width: 40px; }
+
+
+/* STANDINGS */
+.standings-section { padding: 90px 48px; background: #0a0a0a; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.standings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+.standings-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.standings-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; }
+.standings-sub { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.45); max-width: 340px; text-align: right; line-height: 1.7; }
+.standings-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(240,237,230,0.08); }
+.standing-card { background: #0d0d0d; padding: 32px 26px; display: flex; flex-direction: column; gap: 18px; transition: background 0.25s; }
+.standing-card:hover { background: #131313; }
+.standing-finish { display: flex; align-items: baseline; gap: 8px; }
+.standing-place { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: #E8531A; }
+.standing-place-suffix { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #E8531A; opacity: 0.7; }
+.standing-outof { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,237,230,0.35); margin-top: 2px; }
+.standing-team { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; color: #f0ede6; line-height: 1.15; }
+.standing-division { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.4); padding-bottom: 14px; border-bottom: 1px solid rgba(240,237,230,0.08); }
+.standing-stats { display: flex; gap: 20px; }
+.standing-stat { display: flex; flex-direction: column; gap: 3px; }
+.standing-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #f0ede6; }
+.standing-stat-label { font-size: 8px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.32); }
+.standing-record { font-size: 11px; font-weight: 500; color: rgba(240,237,230,0.5); letter-spacing: 0.03em; }
+.standing-record .win { color: #6fae7c; }
+.standing-record .loss { color: rgba(240,237,230,0.35); }
+@media (max-width: 900px) { .standings-grid { grid-template-columns: repeat(2, 1fr); } }
+
+
+.standings-subhead { display: flex; align-items: center; gap: 16px; margin: 44px 0 20px; }
+.standings-subhead-label { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; color: #E8531A; }
+.standings-subhead-line { flex: 1; height: 1px; background: rgba(240,237,230,0.1); }
+.standings-grid-girls { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
+@media (max-width: 900px) { .standings-grid-girls { grid-template-columns: repeat(2, 1fr); max-width: none; } }
+
+
+/* CHAMPION BANNER */
+.champion-banner { padding: 64px 48px; background: linear-gradient(135deg, #1a0d05 0%, #0a0a0a 60%); border-bottom: 1px solid rgba(240,237,230,0.07); position: relative; overflow: hidden; }
+.champion-banner::before { content: ''; position: absolute; top: -40%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,83,26,0.15) 0%, transparent 70%); pointer-events: none; }
+.champion-inner { display: flex; align-items: center; gap: 40px; position: relative; z-index: 1; flex-wrap: wrap; }
+.champion-badge-icon { flex-shrink: 0; width: 88px; height: 88px; border: 2px solid #E8531A; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.champion-badge-icon svg { width: 44px; height: 44px; stroke: #E8531A; fill: none; stroke-width: 1.5; }
+.champion-text { flex: 1; min-width: 280px; }
+.champion-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 10px; }
+.champion-headline { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 0.95; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 10px; }
+.champion-body { font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.55); max-width: 520px; }
+.champion-body strong { color: rgba(240,237,230,0.85); font-weight: 500; }
+.champion-place { flex-shrink: 0; text-align: center; padding-left: 40px; border-left: 1px solid rgba(240,237,230,0.1); }
+.champion-place-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: #E8531A; }
+.champion-place-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.4); margin-top: 4px; }
+@media (max-width: 700px) { .champion-place { border-left: none; padding-left: 0; } }
+
+
+/* COACHES */
+.coaches-section { padding: 90px 48px; background: #0d0d0d; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.coaches-header { margin-bottom: 48px; max-width: 560px; }
+.coaches-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.coaches-title { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 18px; }
+.coaches-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.55); }
+.coaches-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(240,237,230,0.08); }
+.coach-group { background: #0a0a0a; padding: 40px; }
+.coach-group-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.08em; color: #E8531A; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid rgba(240,237,230,0.08); }
+.coach-list { display: flex; flex-direction: column; gap: 22px; }
+.coach-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 0.03em; color: #f0ede6; line-height: 1.3; }
+.coach-role-wrap { text-align: right; flex-shrink: 0; }
+.coach-role { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: rgba(240,237,230,0.6); line-height: 1.5; }
+.coach-age { font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.35); margin-top: 2px; }
+@media (max-width: 800px) { .coaches-groups { grid-template-columns: 1fr; } }
+
+
+.nav-item { position: relative; }
+.nav-item.has-dropdown > a::after { content: ''; display: inline-block; margin-left: 5px; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; opacity: 0.5; }
+.nav-item.has-dropdown:hover > a::after { transform: rotate(225deg) translateY(1px); }
+.nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px); min-width: 240px; background: #0f0f0f; border: 1px solid rgba(240,237,230,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; padding: 8px 0; z-index: 300; }
+.nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dropdown::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+.nav-dropdown a { display: block; padding: 11px 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: background 0.15s, color 0.15s, padding-left 0.15s; border-left: 2px solid transparent; }
+.nav-dropdown a:hover { background: rgba(232,83,26,0.08); color: #f0ede6; border-left-color: #E8531A; padding-left: 24px; }
+.nav-item.current > a { color: #f0ede6; }
+.nav-dropdown a.current { color: #f0ede6; border-left-color: #E8531A; }
+
+
+
+.flip-outer { position: relative; height: 1700vh; background: #0a0a0a; }
+.flip-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.flip-heading { text-align: center; margin-bottom: 36px; }
+.flip-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 12px; }
+.flip-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 52px); letter-spacing: 0.02em; color: #f0ede6; }
+.flip-stack { position: relative; width: min(640px, 86vw); height: min(440px, 50vh); perspective: 2200px; }
+.flip-card { position: absolute; inset: 0; transform-origin: bottom center; transform-style: preserve-3d; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); backface-visibility: hidden; }
+.flip-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.88) saturate(0.94); display: block; }
+.flip-progress { width: min(640px, 86vw); height: 2px; background: rgba(240,237,230,0.1); margin-top: 32px; }
+.flip-progress-fill { height: 100%; background: #E8531A; width: 0%; transition: width 0.1s linear; }
+.flip-counter { margin-top: 14px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: rgba(240,237,230,0.4); }
+
+
+/* ============================================================
+   SUBPAGE COMPONENTS — extends base.css, same design tokens
+   ============================================================ */
+
+/* PAGE HERO (no video — used on every interior page) */
+.page-hero { position: relative; padding: 190px 48px 72px; background: #0a0a0a; overflow: hidden; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.page-hero::before { content: ''; position: absolute; top: -30%; right: -8%; width: 620px; height: 620px; background: radial-gradient(circle, rgba(232,83,26,0.13) 0%, transparent 70%); pointer-events: none; }
+.page-hero-inner { position: relative; z-index: 1; max-width: 900px; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.38); margin-bottom: 26px; }
+.breadcrumb a { color: rgba(240,237,230,0.38); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: #E8531A; }
+.breadcrumb-sep { opacity: 0.4; }
+.page-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.page-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 7vw, 92px); line-height: 0.92; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 22px; }
+.page-headline em { font-style: normal; color: #E8531A; }
+.page-sub { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.58); max-width: 560px; }
+.page-hero-meta { display: flex; gap: 28px; margin-top: 36px; flex-wrap: wrap; }
+.meta-chip { display: flex; flex-direction: column; gap: 4px; padding: 14px 20px; border: 1px solid rgba(240,237,230,0.12); }
+.meta-chip-label { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.38); }
+.meta-chip-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.03em; color: #f0ede6; }
+
+/* GENERIC CONTENT SECTION */
+.content-section { padding: 90px 48px; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.content-section.alt { background: #0d0d0d; }
+.section-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 16px; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4.5vw, 56px); line-height: 0.95; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 20px; }
+.section-body { font-size: 14px; font-weight: 300; line-height: 1.85; color: rgba(240,237,230,0.55); max-width: 640px; }
+.section-body + .section-body { margin-top: 16px; }
+.section-body strong { color: rgba(240,237,230,0.85); font-weight: 500; }
+.section-header-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
+
+/* TWO COLUMN LAYOUT */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+/* INFO / FEATURE CARD GRID */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(240,237,230,0.08); margin-top: 8px; }
+.card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) { .card-grid, .card-grid.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .card-grid, .card-grid.cols-2, .card-grid.cols-4 { grid-template-columns: 1fr; } }
+.info-card { background: #0a0a0a; padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; transition: background 0.25s; }
+.content-section.alt .info-card { background: #0d0d0d; }
+.info-card:hover { background: #131313; }
+.info-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #E8531A; opacity: 0.4; }
+.info-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 21px; letter-spacing: 0.04em; color: #f0ede6; }
+.info-card-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.5); }
+
+/* NOTICE / ALERT BOX */
+.notice { border: 1px solid rgba(232,83,26,0.32); background: rgba(232,83,26,0.07); padding: 24px 28px; display: flex; gap: 18px; align-items: flex-start; margin: 32px 0; max-width: 640px; }
+.notice-icon { flex-shrink: 0; width: 22px; height: 22px; stroke: #E8531A; fill: none; stroke-width: 1.6; margin-top: 2px; }
+.notice-title { font-size: 13px; font-weight: 500; letter-spacing: 0.03em; color: #f0ede6; margin-bottom: 4px; }
+.notice-text { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.6); }
+
+/* TIMELINE / STEP LIST (only for genuine sequences) */
+.step-list { display: flex; flex-direction: column; gap: 1px; background: rgba(240,237,230,0.08); margin-top: 8px; }
+.step-item { background: #0a0a0a; padding: 26px 32px; display: flex; gap: 24px; align-items: flex-start; }
+.content-section.alt .step-item { background: #0d0d0d; }
+.step-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #E8531A; opacity: 0.45; flex-shrink: 0; width: 44px; }
+.step-title { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 0.04em; color: #f0ede6; margin-bottom: 4px; }
+.step-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.5); }
+
+/* CHECKLIST */
+.checklist { display: flex; flex-direction: column; gap: 1px; background: rgba(240,237,230,0.08); margin-top: 8px; max-width: 640px; }
+.check-item { background: #0a0a0a; padding: 18px 26px; display: flex; gap: 16px; align-items: flex-start; font-size: 14px; font-weight: 300; color: rgba(240,237,230,0.68); line-height: 1.6; }
+.content-section.alt .check-item { background: #0d0d0d; }
+.check-mark { flex-shrink: 0; width: 18px; height: 18px; border: 1px solid rgba(232,83,26,0.5); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.check-mark::after { content: ''; width: 8px; height: 8px; background: #E8531A; }
+
+/* SCHEDULE TABLE */
+.schedule-table { width: 100%; border-collapse: collapse; margin-top: 8px; max-width: 900px; }
+.schedule-table th { text-align: left; font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.38); padding: 14px 20px; border-bottom: 1px solid rgba(240,237,230,0.12); }
+.schedule-table td { padding: 18px 20px; border-bottom: 1px solid rgba(240,237,230,0.06); font-size: 13px; color: rgba(240,237,230,0.7); font-weight: 300; }
+.schedule-table tr:hover td { background: rgba(240,237,230,0.02); }
+.schedule-table .sc-team { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.03em; color: #f0ede6; }
+.schedule-table .sc-tag { display: inline-block; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 9px; background: rgba(232,83,26,0.12); border: 1px solid rgba(232,83,26,0.3); color: #E8531A; }
+.table-scroll { overflow-x: auto; }
+
+/* FORM (registration / payment) */
+.form-wrap { max-width: 560px; margin-top: 8px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.form-row.single { grid-template-columns: 1fr; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-field label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.45); }
+.form-field input, .form-field select, .form-field textarea { background: #0d0d0d; border: 1px solid rgba(240,237,230,0.16); color: #f0ede6; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; padding: 13px 16px; transition: border-color 0.2s; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { outline: none; border-color: #E8531A; }
+.form-field textarea { resize: vertical; min-height: 100px; }
+.form-note { font-size: 11px; font-weight: 300; color: rgba(240,237,230,0.4); margin-top: 4px; line-height: 1.6; }
+.form-submit { margin-top: 8px; }
+
+/* PRICING / FEE CARDS */
+.fee-card { background: #0a0a0a; padding: 34px 30px; display: flex; flex-direction: column; gap: 14px; }
+.content-section.alt .fee-card { background: #0d0d0d; }
+.fee-card-tier { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #E8531A; }
+.fee-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.03em; color: #f0ede6; }
+.fee-card-price { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #f0ede6; }
+.fee-card-price span { font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: rgba(240,237,230,0.4); }
+.fee-card-list { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.fee-card-list li { list-style: none; font-size: 12px; font-weight: 300; color: rgba(240,237,230,0.55); padding-left: 16px; position: relative; }
+.fee-card-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 1px; background: #E8531A; }
+
+/* GENERIC CTA BANNER (like tryouts section, but flexible) */
+.cta-banner { padding: 72px 48px; background: #E8531A; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+.cta-banner-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px, 5vw, 60px); line-height: 0.92; letter-spacing: 0.02em; color: #fff; }
+.cta-banner-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.8); margin-top: 14px; max-width: 460px; line-height: 1.7; }
+.cta-banner-btns { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+@media (max-width: 700px) { .cta-banner { grid-template-columns: 1fr; } }
+
+/* ROSTER / CONTACT LIST (reuses coach-list look) */
+.roster-note { font-size: 12px; font-weight: 300; color: rgba(240,237,230,0.4); margin-top: 20px; }
+
+/* PROSE (policy / guide long-form content) */
+.prose h3 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.03em; color: #f0ede6; margin: 36px 0 14px; }
+.prose h3:first-child { margin-top: 0; }
+.prose p { font-size: 14px; font-weight: 300; line-height: 1.85; color: rgba(240,237,230,0.58); margin-bottom: 14px; max-width: 700px; }
+.prose ul { margin: 0 0 14px 0; max-width: 700px; }
+.prose ul li { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.58); margin-bottom: 8px; padding-left: 18px; position: relative; list-style: none; }
+.prose ul li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 1px; background: #E8531A; }
+.prose strong { color: rgba(240,237,230,0.85); font-weight: 500; }
+
+/* SIMPLE FOOTER SPACER (footer already defined in base.css) */
+
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">NYC<span> IMPACT</span></a>
+  <ul class="nav-links">
+    <li class="nav-item"><a href="index.html">Home</a></li>
+    <li class="nav-item has-dropdown">
+      <a href="about-us.html">About Us</a>
+      <div class="nav-dropdown">
+        <a href="about-us.html">About Us</a>
+        <a href="support-us.html">Support Us</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="events.html">Events</a>
+      <div class="nav-dropdown">
+        <a href="open-gym.html">Open Gym</a>
+        <a href="chinatown-classic.html">Chinatown Classic</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="nacivt.html">NACIVT</a>
+      <div class="nav-dropdown">
+        <a href="nacivt-9man-tryouts.html">9-Man Tryouts</a>
+        <a href="nacivt-women-tryouts.html">Women Tryouts</a>
+        <a href="nacivt-fundraiser.html">Program Fundraiser</a>
+        <a href="9-man.html">9-Man</a>
+        <a href="booming-impact.html">Booming Impact</a>
+        <a href="dynamic-impact.html">Dynamic Impact</a>
+        <a href="synergy-impact.html">Synergy Impact</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="boys-volleyball.html">Boys</a>
+      <div class="nav-dropdown">
+        <a href="boys-tryout.html">Tryout Registration</a>
+        <a href="boys-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="boys-season-info.html">Season Info &amp; Fees</a>
+        <a href="pay-club-fee.html">Make A Payment</a>
+        <a href="aau-nationals.html">AAU Jr Nationals</a>
+        <a href="coaches-directory.html">Coaches Directory</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="girls-volleyball.html" class="current">Girls</a>
+      <div class="nav-dropdown">
+        <a href="girls-tryouts.html">Tryout Registration</a>
+        <a href="girls-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="girls-season-info.html">Season Info &amp; Fees</a>
+        <a href="tryout-checklist.html">Tryout Check List</a>
+        <a href="girls-practice-schedule.html">Practice Schedule</a>
+        <a href="payment.html">Make A Payment</a>
+        <a href="tournament-schedule.html">Tournament Schedule</a>
+        <a href="team-14u-black.html">14U Black</a>
+        <a href="team-15u-black.html">15U Black</a>
+        <a href="team-16u-black.html">16U Black</a>
+        <a href="team-17u-orange.html">17U Orange</a>
+        <a href="team-17u-black.html">17U Black</a>
+        <a href="chaperone.html">Chaperone Guide</a>
+        <a href="travel-policy.html">Travel Policy</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="programs.html">Programs</a>
+      <div class="nav-dropdown">
+        <a href="volley-kids.html">Volley Kids</a>
+        <a href="geva-developmental.html">GEVA Developmental Team</a>
+        <a href="private-lesson.html">Private Lesson</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="resources.html">Resources</a>
+      <div class="nav-dropdown">
+        <a href="mental-health-support.html">Mental Health Support</a>
+        <a href="incident.html">Incident Report</a>
+        <a href="forms.html">Forms</a>
+        <a href="usav-registration.html">USA Volleyball Registration</a>
+        <a href="safesport.html">SafeSport</a>
+        <a href="guides-for-parent.html">Guides for Parent</a>
+        <a href="club-policy.html">Club Policy</a>
+        <a href="covid-illness-injury.html">COVID/Illness/Injury</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="contact-us.html">Contact</a></li>
+  </ul>
+  <a href="donations.html" class="nav-cta">Donate</a>
+</nav>
+
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="breadcrumb-sep">/</span><a href="girls-volleyball.html">Girls</a><span class="breadcrumb-sep">/</span><span>Make A Payment</span></div>
+    <div class="page-eyebrow">Girls&rsquo; Program</div>
+    <h1 class="page-headline">Make A<br>Payment.</h1>
+    <p class="page-sub">Tryout fees, deposits, and season payments &mdash; all handled through Venmo or Zelle.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="notice">
+    <svg class="notice-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <div>
+      <div class="notice-title">Before You Pay</div>
+      <div class="notice-text">Please include your athlete's full name and division (e.g. &ldquo;Jane Smith &ndash; 16U&rdquo;) in the payment comment so we can match it quickly.</div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section alt">
+  <div class="section-tag">Payment Methods</div>
+  <h2 class="section-title">Venmo or Zelle.</h2>
+  <div class="card-grid cols-2">
+    <div class="info-card"><div class="info-card-title">Venmo</div><p class="info-card-desc">@nycimpactvb &mdash; preferred method. Turn off &ldquo;Purchase&rdquo; before sending.</p></div>
+    <div class="info-card"><div class="info-card-title">Zelle</div><p class="info-card-desc">impactsvb@gmail.com &mdash; available through most major banking apps.</p></div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="section-tag">Common Amounts</div>
+  <h2 class="section-title">Quick Reference.</h2>
+  <div class="card-grid cols-4">
+    <div class="info-card"><div class="info-card-title">$100</div><p class="info-card-desc">Tryout fee</p></div>
+    <div class="info-card"><div class="info-card-title">$800</div><p class="info-card-desc">Roster deposit</p></div>
+    <div class="info-card"><div class="info-card-title">$2,250</div><p class="info-card-desc">Half season</p></div>
+    <div class="info-card"><div class="info-card-title">$4,500</div><p class="info-card-desc">Full season</p></div>
+  </div>
+  <p class="section-body" style="margin-top:24px;">Questions? Email nycimpactvb@gmail.com and we'll respond within 24 hours. Please review our refund policy before submitting payment.</p>
+  <a href="contact-us.html" class="btn-primary" style="margin-top:12px; display:inline-block;">Contact Us</a>
+</section>
+
+
+<div class="footer-main">
+  <div>
+    <div class="footer-logo">NYC<span> IMPACT</span></div>
+    <p class="footer-tagline">A nonprofit urban volleyball club building athletes and community across New York City since 2011.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Girls</div>
+    <ul class="footer-links">
+      <li><a href="girls-volleyball.html">Program Overview</a></li>
+      <li><a href="girls-tryouts.html">Tryout Registration</a></li>
+      <li><a href="girls-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="tournament-schedule.html">Tournament Schedule</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">NACIVT</div>
+    <ul class="footer-links">
+      <li><a href="nacivt.html">Overview</a></li>
+      <li><a href="nacivt-9man-tryouts.html">9-Man Tryouts</a></li>
+      <li><a href="nacivt-women-tryouts.html">Women Tryouts</a></li>
+      <li><a href="nacivt-fundraiser.html">Program Fundraiser</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Club</div>
+    <ul class="footer-links">
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
+      <li><a href="donations.html">Donate</a></li>
+    </ul>
+  </div>
+</div>
+<div class="footer-bottom">
+  <span class="footer-copy">&copy; 2026 NYC Impact Sports Inc. All rights reserved.</span>
+  <div class="social-row">
+    <a href="https://www.facebook.com/pages/Impact-Volleyball-Club-NYC/180746462017160" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/nycimpact/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/user/ImpactVB" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
+
+</body>
+</html>

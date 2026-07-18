@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYC Impact — Homepage Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #f0ede6; overflow-x: hidden; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; border-bottom: 1px solid rgba(240,237,230,0.1); background: rgba(10,10,10,0.94); backdrop-filter: blur(10px); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.12em; color: #f0ede6; text-decoration: none; }
+.nav-logo span { color: #E8531A; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #f0ede6; }
+.nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; background: #E8531A; color: #fff; text-decoration: none; }
+
+/* HERO */
+.hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; display: flex; align-items: flex-end; }
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg video { width: 100%; height: 100%; object-fit: cover; object-position: center 50%; filter: brightness(0.42) saturate(0.8); }
+.hero-grad { position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.05) 100%); }
+.hero-grad-left { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,0.75) 0%, transparent 65%); }
+.hero-content { position: relative; z-index: 2; padding: 0 48px 0 48px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: flex-end; gap: 0; }
+.hero-text { padding-bottom: 80px; }
+.hero-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 9vw, 112px); line-height: 0.9; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 28px; }
+.hero-headline em { font-style: normal; color: #E8531A; }
+.hero-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(240,237,230,0.65); max-width: 380px; margin-bottom: 38px; }
+.hero-actions { display: flex; gap: 14px; align-items: center; }
+.btn-primary { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: #E8531A; color: #fff; text-decoration: none; display: inline-block; transition: background 0.2s; }
+.btn-primary:hover { background: #c94215; }
+.btn-ghost { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: transparent; color: rgba(240,237,230,0.7); border: 1px solid rgba(240,237,230,0.22); text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: rgba(240,237,230,0.6); color: #f0ede6; }
+.hero-stats { display: flex; flex-direction: column; justify-content: flex-end; }
+.hero-stats-bar { display: flex; border: 1px solid rgba(240,237,230,0.12); border-bottom: none; }
+.hero-stat { flex: 1; padding: 20px 16px; border-right: 1px solid rgba(240,237,230,0.12); text-align: center; background: rgba(10,10,10,0.65); backdrop-filter: blur(8px); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.05em; color: #f0ede6; display: block; }
+.hero-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.38); display: block; margin-top: 3px; }
+.scroll-hint { position: absolute; bottom: 96px; left: 48px; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.scroll-line { width: 1px; height: 40px; background: rgba(240,237,230,0.15); position: relative; overflow: hidden; }
+.scroll-line::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: #E8531A; animation: scrolldown 1.8s ease-in-out infinite; }
+@keyframes scrolldown { 0%{top:-100%} 100%{top:100%} }
+.scroll-text { font-size: 8px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.28); writing-mode: vertical-lr; transform: rotate(180deg); }
+
+/* MARQUEE */
+.marquee-wrap { background: #E8531A; padding: 14px 0; overflow: hidden; white-space: nowrap; }
+.marquee-inner { display: inline-block; animation: marquee 22s linear infinite; }
+.marquee-item { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.15em; color: #fff; padding: 0 30px; }
+.marquee-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.45); vertical-align: middle; margin: 0 4px; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+
+
+/* MISSION */
+.mission { padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.mission-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 22px; }
+.mission-headline { font-family: 'Bebas Neue', sans-serif; font-size: 68px; line-height: 0.93; letter-spacing: 0.03em; color: #f0ede6; margin-bottom: 22px; }
+.mission-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.58); }
+.mission-pillars { display: flex; flex-direction: column; gap: 1px; }
+.pillar { padding: 28px 32px; border: 1px solid rgba(240,237,230,0.08); display: flex; gap: 20px; align-items: flex-start; transition: background 0.25s; cursor: default; }
+.pillar:hover { background: rgba(240,237,230,0.04); }
+.pillar-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: #E8531A; opacity: 0.35; flex-shrink: 0; }
+.pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.06em; color: #f0ede6; margin-bottom: 6px; }
+.pillar-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.48); }
+
+/* ACHIEVEMENT */
+.achievement { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; margin: 2px 0; }
+.achievement-img { position: relative; overflow: hidden; }
+.achievement-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.72) saturate(0.85); transition: transform 0.8s ease; }
+.achievement-img:hover img { transform: scale(1.03); }
+.achievement-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, transparent 55%, #0a0a0a 100%); }
+.achievement-content { background: #0d0d0d; padding: 64px 52px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(240,237,230,0.06); }
+.achievement-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 20px; }
+.achievement-headline { font-family: 'Bebas Neue', sans-serif; font-size: 60px; line-height: 0.92; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 22px; }
+.achievement-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 14px; background: rgba(232,83,26,0.14); border: 1px solid rgba(232,83,26,0.32); color: #E8531A; margin-bottom: 24px; }
+.achievement-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.52); max-width: 340px; margin-bottom: 36px; }
+.btn-white { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 32px; background: #f0ede6; color: #0a0a0a; text-decoration: none; display: inline-block; transition: background 0.2s; }
+.btn-white:hover { background: #fff; }
+
+/* TRYOUTS */
+.tryouts { padding: 80px 48px; background: #E8531A; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; margin: 2px 0; }
+.tryouts-headline { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 0.9; letter-spacing: 0.02em; color: #fff; }
+.tryouts-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.78); margin-top: 16px; max-width: 420px; line-height: 1.75; }
+.tryouts-btns { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+.btn-wh-solid { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: #fff; color: #E8531A; text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: background 0.2s; }
+.btn-wh-solid:hover { background: #f0f0f0; }
+.btn-outline-wh { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 36px; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); text-decoration: none; display: inline-block; text-align: center; white-space: nowrap; transition: border-color 0.2s; }
+.btn-outline-wh:hover { border-color: #fff; }
+
+/* FOOTER */
+.footer-main { padding: 56px 48px 32px; border-top: 1px solid rgba(240,237,230,0.07); display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; color: #f0ede6; margin-bottom: 12px; }
+.footer-logo span { color: #E8531A; }
+.footer-tagline { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.36); line-height: 1.75; max-width: 220px; }
+.footer-col-title { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.32); margin-bottom: 16px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.52); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #f0ede6; }
+.footer-bottom { padding: 20px 48px; border-top: 1px solid rgba(240,237,230,0.06); display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10px; color: rgba(240,237,230,0.26); letter-spacing: 0.05em; }
+.social-row { display: flex; gap: 18px; }
+.social-row a { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.36); text-decoration: none; transition: color 0.2s; }
+.social-row a:hover { color: #E8531A; }
+
+/* SLIDESHOW */
+.slideshow-section { margin: 2px 0; background: #0d0d0d; border-top: 1px solid rgba(240,237,230,0.07); border-bottom: 1px solid rgba(240,237,230,0.07); }
+.slideshow-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 48px 48px 32px; align-items: end; }
+.slideshow-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.slideshow-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; }
+.slideshow-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.52); margin-bottom: 24px; max-width: 380px; }
+.slideshow-controls { display: flex; align-items: center; gap: 16px; }
+.slide-btn { width: 40px; height: 40px; border: 1px solid rgba(240,237,230,0.18); background: transparent; color: rgba(240,237,230,0.7); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.slide-btn:hover { background: rgba(240,237,230,0.08); border-color: rgba(240,237,230,0.4); color: #f0ede6; }
+.slide-counter { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: rgba(240,237,230,0.4); min-width: 40px; text-align: center; }
+.slideshow-track-wrap { overflow: hidden; width: 100%; position: relative; }
+.slideshow-track { display: flex; transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.slide { flex: 0 0 100%; position: relative; height: 520px; overflow: hidden; }
+.slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.82) saturate(0.92); transition: transform 0.8s ease; }
+.slide.active img { transform: scale(1.02); }
+.slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, transparent 50%); }
+.slide-label { position: absolute; bottom: 24px; left: 48px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.12em; color: rgba(240,237,230,0.8); z-index: 2; }
+.slideshow-dots { display: flex; justify-content: center; gap: 8px; padding: 20px 0 28px; }
+.dot { width: 24px; height: 2px; background: rgba(240,237,230,0.2); cursor: pointer; transition: background 0.3s, width 0.3s; }
+.dot.active { background: #E8531A; width: 40px; }
+
+
+/* STANDINGS */
+.standings-section { padding: 90px 48px; background: #0a0a0a; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.standings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+.standings-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.standings-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; }
+.standings-sub { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.45); max-width: 340px; text-align: right; line-height: 1.7; }
+.standings-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(240,237,230,0.08); }
+.standing-card { background: #0d0d0d; padding: 32px 26px; display: flex; flex-direction: column; gap: 18px; transition: background 0.25s; }
+.standing-card:hover { background: #131313; }
+.standing-finish { display: flex; align-items: baseline; gap: 8px; }
+.standing-place { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: #E8531A; }
+.standing-place-suffix { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #E8531A; opacity: 0.7; }
+.standing-outof { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,237,230,0.35); margin-top: 2px; }
+.standing-team { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; color: #f0ede6; line-height: 1.15; }
+.standing-division { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.4); padding-bottom: 14px; border-bottom: 1px solid rgba(240,237,230,0.08); }
+.standing-stats { display: flex; gap: 20px; }
+.standing-stat { display: flex; flex-direction: column; gap: 3px; }
+.standing-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #f0ede6; }
+.standing-stat-label { font-size: 8px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.32); }
+.standing-record { font-size: 11px; font-weight: 500; color: rgba(240,237,230,0.5); letter-spacing: 0.03em; }
+.standing-record .win { color: #6fae7c; }
+.standing-record .loss { color: rgba(240,237,230,0.35); }
+@media (max-width: 900px) { .standings-grid { grid-template-columns: repeat(2, 1fr); } }
+
+
+.standings-subhead { display: flex; align-items: center; gap: 16px; margin: 44px 0 20px; }
+.standings-subhead-label { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; color: #E8531A; }
+.standings-subhead-line { flex: 1; height: 1px; background: rgba(240,237,230,0.1); }
+.standings-grid-girls { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
+@media (max-width: 900px) { .standings-grid-girls { grid-template-columns: repeat(2, 1fr); max-width: none; } }
+
+
+/* CHAMPION BANNER */
+.champion-banner { padding: 64px 48px; background: linear-gradient(135deg, #1a0d05 0%, #0a0a0a 60%); border-bottom: 1px solid rgba(240,237,230,0.07); position: relative; overflow: hidden; }
+.champion-banner::before { content: ''; position: absolute; top: -40%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,83,26,0.15) 0%, transparent 70%); pointer-events: none; }
+.champion-inner { display: flex; align-items: center; gap: 40px; position: relative; z-index: 1; flex-wrap: wrap; }
+.champion-badge-icon { flex-shrink: 0; width: 88px; height: 88px; border: 2px solid #E8531A; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.champion-badge-icon svg { width: 44px; height: 44px; stroke: #E8531A; fill: none; stroke-width: 1.5; }
+.champion-text { flex: 1; min-width: 280px; }
+.champion-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 10px; }
+.champion-headline { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 0.95; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 10px; }
+.champion-body { font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(240,237,230,0.55); max-width: 520px; }
+.champion-body strong { color: rgba(240,237,230,0.85); font-weight: 500; }
+.champion-place { flex-shrink: 0; text-align: center; padding-left: 40px; border-left: 1px solid rgba(240,237,230,0.1); }
+.champion-place-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: #E8531A; }
+.champion-place-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.4); margin-top: 4px; }
+@media (max-width: 700px) { .champion-place { border-left: none; padding-left: 0; } }
+
+
+/* COACHES */
+.coaches-section { padding: 90px 48px; background: #0d0d0d; border-bottom: 1px solid rgba(240,237,230,0.07); }
+.coaches-header { margin-bottom: 48px; max-width: 560px; }
+.coaches-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 14px; }
+.coaches-title { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 0.93; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 18px; }
+.coaches-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.55); }
+.coaches-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(240,237,230,0.08); }
+.coach-group { background: #0a0a0a; padding: 40px; }
+.coach-group-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.08em; color: #E8531A; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid rgba(240,237,230,0.08); }
+.coach-list { display: flex; flex-direction: column; gap: 22px; }
+.coach-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 0.03em; color: #f0ede6; line-height: 1.3; }
+.coach-role-wrap { text-align: right; flex-shrink: 0; }
+.coach-role { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; color: rgba(240,237,230,0.6); line-height: 1.5; }
+.coach-age { font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.35); margin-top: 2px; }
+@media (max-width: 800px) { .coaches-groups { grid-template-columns: 1fr; } }
+
+
+.nav-item { position: relative; }
+.nav-item.has-dropdown > a::after { content: ''; display: inline-block; margin-left: 5px; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; opacity: 0.5; }
+.nav-item.has-dropdown:hover > a::after { transform: rotate(225deg) translateY(1px); }
+.nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px); min-width: 240px; background: #0f0f0f; border: 1px solid rgba(240,237,230,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; padding: 8px 0; z-index: 300; }
+.nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dropdown::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+.nav-dropdown a { display: block; padding: 11px 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: background 0.15s, color 0.15s, padding-left 0.15s; border-left: 2px solid transparent; }
+.nav-dropdown a:hover { background: rgba(232,83,26,0.08); color: #f0ede6; border-left-color: #E8531A; padding-left: 24px; }
+.nav-item.current > a { color: #f0ede6; }
+.nav-dropdown a.current { color: #f0ede6; border-left-color: #E8531A; }
+
+
+
+
+.marquee-photos { padding: 80px 0; background: #0a0a0a; border-bottom: 1px solid rgba(240,237,230,0.07); overflow: hidden; }
+.marquee-photos-heading { text-align: center; margin-bottom: 40px; padding: 0 48px; }
+.marquee-photos-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #E8531A; margin-bottom: 12px; }
+.marquee-photos-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 52px); letter-spacing: 0.02em; color: #f0ede6; }
+.marquee-photos-track-wrap { width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%); }
+.marquee-photos-track { display: flex; gap: 20px; width: max-content; animation: mp-scroll 26s linear infinite; }
+.marquee-photos-track:hover { animation-play-state: paused; }
+.mp-item { flex: 0 0 auto; width: 300px; height: 380px; overflow: hidden; position: relative; }
+.mp-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.87) saturate(0.93); transition: transform 0.5s ease, filter 0.3s ease; }
+.mp-item:hover img { transform: scale(1.05); filter: brightness(1) saturate(1.05); }
+@keyframes mp-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 700px) { .mp-item { width: 220px; height: 280px; } .marquee-photos-track { animation-duration: 18s; } }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">NYC<span> IMPACT</span></a>
+  <ul class="nav-links">
+    <li class="nav-item"><a href="index.html" class="current">Home</a></li>
+    <li class="nav-item has-dropdown">
+      <a href="about-us.html">About Us</a>
+      <div class="nav-dropdown">
+        <a href="about-us.html">About Us</a>
+        <a href="support-us.html">Support Us</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="events.html">Events</a>
+      <div class="nav-dropdown">
+        <a href="open-gym.html">Open Gym</a>
+        <a href="chinatown-classic.html">Chinatown Classic</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="nacivt.html">NACIVT</a>
+      <div class="nav-dropdown">
+        <a href="nacivt-9man-tryouts.html">9-Man Tryouts</a>
+        <a href="nacivt-women-tryouts.html">Women Tryouts</a>
+        <a href="nacivt-fundraiser.html">Program Fundraiser</a>
+        <a href="9-man.html">9-Man</a>
+        <a href="booming-impact.html">Booming Impact</a>
+        <a href="dynamic-impact.html">Dynamic Impact</a>
+        <a href="synergy-impact.html">Synergy Impact</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="boys-volleyball.html">Boys</a>
+      <div class="nav-dropdown">
+        <a href="boys-tryout.html">Tryout Registration</a>
+        <a href="boys-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="boys-season-info.html">Season Info &amp; Fees</a>
+        <a href="pay-club-fee.html">Make A Payment</a>
+        <a href="aau-nationals.html">AAU Jr Nationals</a>
+        <a href="coaches-directory.html">Coaches Directory</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="girls-volleyball.html">Girls</a>
+      <div class="nav-dropdown">
+        <a href="girls-tryouts.html">Tryout Registration</a>
+        <a href="girls-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="girls-season-info.html">Season Info &amp; Fees</a>
+        <a href="tryout-checklist.html">Tryout Check List</a>
+        <a href="girls-practice-schedule.html">Practice Schedule</a>
+        <a href="payment.html">Make A Payment</a>
+        <a href="tournament-schedule.html">Tournament Schedule</a>
+        <a href="team-14u-black.html">14U Black</a>
+        <a href="team-15u-black.html">15U Black</a>
+        <a href="team-16u-black.html">16U Black</a>
+        <a href="team-17u-orange.html">17U Orange</a>
+        <a href="team-17u-black.html">17U Black</a>
+        <a href="chaperone.html">Chaperone Guide</a>
+        <a href="travel-policy.html">Travel Policy</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="programs.html">Programs</a>
+      <div class="nav-dropdown">
+        <a href="volley-kids.html">Volley Kids</a>
+        <a href="geva-developmental.html">GEVA Developmental Team</a>
+        <a href="private-lesson.html">Private Lesson</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="resources.html">Resources</a>
+      <div class="nav-dropdown">
+        <a href="mental-health-support.html">Mental Health Support</a>
+        <a href="incident.html">Incident Report</a>
+        <a href="forms.html">Forms</a>
+        <a href="usav-registration.html">USA Volleyball Registration</a>
+        <a href="safesport.html">SafeSport</a>
+        <a href="guides-for-parent.html">Guides for Parent</a>
+        <a href="club-policy.html">Club Policy</a>
+        <a href="covid-illness-injury.html">COVID/Illness/Injury</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="contact-us.html">Contact</a></li>
+  </ul>
+  <a href="donations.html" class="nav-cta">Donate</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline>
+      <source src="15s17smixtapeday3.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-grad"></div>
+  <div class="hero-grad-left"></div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">NYC Impact Volleyball Club &middot; Est. 2011</div>
+      <h1 class="hero-headline">Built<br>on the<br><em>Court.</em></h1>
+      <p class="hero-sub">A nonprofit urban volleyball club rooted in New York City. We build athletes, we build community &mdash; from Chinatown to Brooklyn and beyond.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">View Tryouts</a>
+        <a href="#" class="btn-ghost">Our Programs</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stats-bar">
+        <div class="hero-stat"><span class="hero-stat-num">200+</span><span class="hero-stat-label">Athletes</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">14</span><span class="hero-stat-label">Years</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">Programs</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">NYC</span><span class="hero-stat-label">Based</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item">Boys Club Tryouts Open</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Girls Club Tryouts Open</span><span class="marquee-dot"></span>
+    <span class="marquee-item">NACIVT 2025 Registration</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Open Gym Every Weekend</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Chinatown Classic Tournament</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Private Lessons Available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Boys Club Tryouts Open</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Girls Club Tryouts Open</span><span class="marquee-dot"></span>
+    <span class="marquee-item">NACIVT 2025 Registration</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Open Gym Every Weekend</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Chinatown Classic Tournament</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Private Lessons Available</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+
+
+  <section class="marquee-photos">
+    <div class="marquee-photos-heading">
+      <div class="marquee-photos-tag">Chinatown Classic</div>
+      <h2 class="marquee-photos-title">NYC on the Court.</h2>
+    </div>
+    <div class="marquee-photos-track-wrap">
+      <div class="marquee-photos-track">
+        <div class="mp-item"><img src="22-DSC_8617.jpg" alt="Women's team huddle at Chinatown Classic"></div>
+        <div class="mp-item"><img src="75-DSC_8996.jpg" alt="Spike vs orange blockers"></div>
+        <div class="mp-item"><img src="84-DSC_9115.jpg" alt="Player handstand celebration"></div>
+        <div class="mp-item"><img src="93-DSC_9184.jpg" alt="Triple block by NYC Impact"></div>
+        <div class="mp-item"><img src="DSC_9125-2.jpg" alt="Team arms-up celebration"></div>
+        <div class="mp-item"><img src="113-DSC_9424.jpg" alt="Spike over multiple blockers"></div>
+        <!-- duplicate set for seamless loop -->
+        <div class="mp-item"><img src="22-DSC_8617.jpg" alt="Women's team huddle at Chinatown Classic"></div>
+        <div class="mp-item"><img src="75-DSC_8996.jpg" alt="Spike vs orange blockers"></div>
+        <div class="mp-item"><img src="84-DSC_9115.jpg" alt="Player handstand celebration"></div>
+        <div class="mp-item"><img src="93-DSC_9184.jpg" alt="Triple block by NYC Impact"></div>
+        <div class="mp-item"><img src="DSC_9125-2.jpg" alt="Team arms-up celebration"></div>
+        <div class="mp-item"><img src="113-DSC_9424.jpg" alt="Spike over multiple blockers"></div>
+      </div>
+    </div>
+  </section>
+
+<section class="mission">
+  <div>
+    <div class="mission-tag">Who We Are</div>
+    <h2 class="mission-headline">More Than<br>A Club.</h2>
+    <p class="mission-body">Founded in 2011, NYC Impact gives young athletes in New York City a real shot at competitive volleyball &mdash; regardless of background. We train hard, compete harder, and build the kind of confidence that follows you off the court.</p>
+  </div>
+  <div class="mission-pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div><div class="pillar-title">Compete</div><p class="pillar-desc">AAU tournaments, NACIVT, regional and national competition across all age groups.</p></div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div><div class="pillar-title">Develop</div><p class="pillar-desc">Position-specific skills clinics, private lessons, and structured season training.</p></div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div><div class="pillar-title">Belong</div><p class="pillar-desc">A community built in New York City &mdash; diverse, tight-knit, and rooted in respect for the game.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+  <section class="coaches-section">
+    <div class="coaches-header">
+      <div class="coaches-tag">2026 Program</div>
+      <h2 class="coaches-title">Coached By<br>Committed People.</h2>
+      <p class="coaches-body">Every result on this page starts on the practice court. Meet the coaching staff building the next generation of NYC Impact athletes across our boys' and girls' programs.</p>
+    </div>
+    <div class="coaches-groups">
+
+      <div class="coach-group">
+        <div class="coach-group-title">Girls' Program</div>
+        <div class="coach-list">
+          <div class="coach-item">
+            <div class="coach-name">Ethan HeFu Yu</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Head Coach</div>
+              <div class="coach-age">17U</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Jimmy Lin</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Head Coach</div>
+              <div class="coach-age">17U &amp; 15U</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Gorton Law King Yi</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Assistant Coach</div>
+              <div class="coach-age">17U</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Roy Eng</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Head Coach</div>
+              <div class="coach-age">14U</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Jessica Yin</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Assistant Coach</div>
+              <div class="coach-age">14U &amp; 15U</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="coach-group">
+        <div class="coach-group-title">Boys' Program</div>
+        <div class="coach-list">
+          <div class="coach-item">
+            <div class="coach-name">Dominik &ldquo;Dom&rdquo; Budny</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Head Coach</div>
+              <div class="coach-age">18U</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Utpal Chand</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Head / Lead Coach</div>
+              <div class="coach-age">17U National</div>
+            </div>
+          </div>
+          <div class="coach-item">
+            <div class="coach-name">Gorton Law King Yi</div>
+            <div class="coach-role-wrap">
+              <div class="coach-role">Assistant Coach</div>
+              <div class="coach-age">16U</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- 9-MAN CHAMPIONS -->
+  <section class="champion-banner">
+    <div class="champion-inner">
+      <div class="champion-badge-icon">
+        <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M7 5H4a3 3 0 003 3M17 5h3a3 3 0 01-3 3"/></svg>
+      </div>
+      <div class="champion-text">
+        <div class="champion-tag">Men's 9-Man &middot; Champions</div>
+        <h2 class="champion-headline">NY Impact Booming 9</h2>
+        <p class="champion-body">Our premier men's 9-man squad went all the way, taking home <strong>1st place</strong> and the Men's 9-Man Championship &mdash; the pinnacle of the community-rooted format that started it all.</p>
+      </div>
+      <div class="champion-place">
+        <div class="champion-place-num">1</div>
+        <div class="champion-place-label">Place</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDINGS -->
+  <section class="standings-section">
+    <div class="standings-header">
+      <div>
+        <div class="standings-tag">2025&ndash;26 Season</div>
+        <h2 class="standings-title">National Standings.</h2>
+      </div>
+      <p class="standings-sub">Boys and girls, six teams total. Here's how NYC Impact stacked up against clubs from across the country this season.</p>
+    </div>
+
+    <div class="standings-subhead">
+      <span class="standings-subhead-label">Boys</span>
+      <span class="standings-subhead-line"></span>
+    </div>
+    <div class="standings-grid">
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">5</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">of 98 teams</div>
+        <div>
+          <div class="standing-team">16s National</div>
+          <div class="standing-division">16 Club Division</div>
+        </div>
+        <div class="standing-stats">
+          <div class="standing-stat">
+            <span class="standing-stat-val">9&ndash;2</span>
+            <span class="standing-stat-label">Matches</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">19&ndash;6</span>
+            <span class="standing-stat-label">Sets</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">1.230</span>
+            <span class="standing-stat-label">Pt %</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">9</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">of 42 teams</div>
+        <div>
+          <div class="standing-team">15-1</div>
+          <div class="standing-division">15 Club Division</div>
+        </div>
+        <div class="standing-stats">
+          <div class="standing-stat">
+            <span class="standing-stat-val">6&ndash;4</span>
+            <span class="standing-stat-label">Matches</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">12&ndash;8</span>
+            <span class="standing-stat-label">Sets</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">1.096</span>
+            <span class="standing-stat-label">Pt %</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">39</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">of 86 teams</div>
+        <div>
+          <div class="standing-team">18s National</div>
+          <div class="standing-division">18 Premier Division</div>
+        </div>
+        <div class="standing-stats">
+          <div class="standing-stat">
+            <span class="standing-stat-val">5&ndash;5</span>
+            <span class="standing-stat-label">Matches</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">12&ndash;13</span>
+            <span class="standing-stat-label">Sets</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">0.953</span>
+            <span class="standing-stat-label">Pt %</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">65</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">of 90 teams</div>
+        <div>
+          <div class="standing-team">17s National</div>
+          <div class="standing-division">17 Premier Division</div>
+        </div>
+        <div class="standing-stats">
+          <div class="standing-stat">
+            <span class="standing-stat-val">3&ndash;8</span>
+            <span class="standing-stat-label">Matches</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">9&ndash;18</span>
+            <span class="standing-stat-label">Sets</span>
+          </div>
+          <div class="standing-stat">
+            <span class="standing-stat-val">0.837</span>
+            <span class="standing-stat-label">Pt %</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="standings-subhead standings-subhead-girls">
+      <span class="standings-subhead-label">Girls</span>
+      <span class="standings-subhead-line"></span>
+    </div>
+    <div class="standings-grid standings-grid-girls">
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">14</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">2026 Irish Rumble</div>
+        <div>
+          <div class="standing-team">14U National</div>
+          <div class="standing-division">14s Division</div>
+        </div>
+      </div>
+
+      <div class="standing-card">
+        <div class="standing-finish">
+          <span class="standing-place">45</span><span class="standing-place-suffix">th</span>
+        </div>
+        <div class="standing-outof">2026 Northeast Qualifier</div>
+        <div>
+          <div class="standing-team">15 National</div>
+          <div class="standing-division">15s Division</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+<section class="tryouts">
+  <div>
+    <h2 class="tryouts-headline">Are You<br>Impact<br>Material?</h2>
+    <p class="tryouts-sub">Tryouts are open for the 2025&ndash;26 season. Boys and girls programs across all age groups. Show us what you've got.</p>
+  </div>
+  <div class="tryouts-btns">
+    <a href="#" class="btn-wh-solid">Boys Tryout Registration</a>
+    <a href="#" class="btn-outline-wh">Girls Tryout Registration</a>
+  </div>
+</section>
+
+<div class="footer-main">
+  <div>
+    <div class="footer-logo">NYC<span> IMPACT</span></div>
+    <p class="footer-tagline">A nonprofit urban volleyball club building athletes and community across New York City since 2011.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Boys</div>
+    <ul class="footer-links">
+      <li><a href="boys-volleyball.html">Program Overview</a></li>
+      <li><a href="boys-tryout.html">Tryout Registration</a></li>
+      <li><a href="boys-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="coaches-directory.html">Coaches Directory</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Girls</div>
+    <ul class="footer-links">
+      <li><a href="girls-volleyball.html">Program Overview</a></li>
+      <li><a href="girls-tryouts.html">Tryout Registration</a></li>
+      <li><a href="girls-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="tournament-schedule.html">Tournament Schedule</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Club</div>
+    <ul class="footer-links">
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
+      <li><a href="donations.html">Donate</a></li>
+    </ul>
+  </div>
+</div>
+<div class="footer-bottom">
+  <span class="footer-copy">&copy; 2026 NYC Impact Sports Inc. All rights reserved.</span>
+  <div class="social-row">
+    <a href="https://www.facebook.com/pages/Impact-Volleyball-Club-NYC/180746462017160" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/nycimpact/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/user/ImpactVB" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  const track = document.getElementById('slideshowTrack');
+  const slides = track.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const counter = document.getElementById('currentSlide');
+  let current = 0;
+  let timer;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = current + 1;
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 4500);
+  }
+
+  slides[0].classList.add('active');
+  document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); startAuto(); });
+  document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); startAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(parseInt(d.dataset.index)); startAuto(); }));
+
+  // Drag/swipe support
+  let startX = 0;
+  track.addEventListener('mousedown', e => { startX = e.clientX; });
+  track.addEventListener('mouseup', e => {
+    const diff = startX - e.clientX;
+    if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+  });
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+  }, {passive:true});
+
+  startAuto();
+})();
+</script>
+
+
+
+
+</body>
+</html>

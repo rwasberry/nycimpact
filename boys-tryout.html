@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boys Tryout Registration | NYC Impact Volleyball Club</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #f0ede6; overflow-x: hidden; }
+a { color: inherit; }
+
+/* ============ NAV WITH DROPDOWNS ============ */
+.nav { position: sticky; top: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; border-bottom: 1px solid rgba(240,237,230,0.1); background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.12em; color: #f0ede6; text-decoration: none; }
+.nav-logo span { color: #E8531A; }
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-item { position: relative; }
+.nav-item > a { display: block; padding: 10px 14px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.6); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+.nav-item:hover > a { color: #f0ede6; }
+.nav-item.has-dropdown > a::after { content: ''; display: inline-block; margin-left: 5px; width: 5px; height: 5px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; opacity: 0.5; }
+.nav-item.has-dropdown:hover > a::after { transform: rotate(225deg) translateY(1px); }
+
+.nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-8px); min-width: 240px; background: #0f0f0f; border: 1px solid rgba(240,237,230,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; padding: 8px 0; }
+.nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dropdown::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+.nav-dropdown a { display: block; padding: 11px 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(240,237,230,0.55); text-decoration: none; transition: background 0.15s, color 0.15s, padding-left 0.15s; border-left: 2px solid transparent; }
+.nav-dropdown a:hover { background: rgba(232,83,26,0.08); color: #f0ede6; border-left-color: #E8531A; padding-left: 24px; }
+.nav-item.current > a { color: #f0ede6; }
+.nav-dropdown a.current { color: #f0ede6; border-left-color: #E8531A; }
+
+.nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; background: #E8531A; color: #fff; text-decoration: none; transition: background 0.2s; flex-shrink: 0; }
+.nav-cta:hover { background: #c94215; }
+
+.nav-mobile-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-mobile-toggle span { width: 22px; height: 2px; background: #f0ede6; }
+
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: flex; }
+}
+
+/* ============ PAGE HEADER (for sub-pages) ============ */
+.page-header { padding: 120px 48px 64px; border-bottom: 1px solid rgba(240,237,230,0.07); position: relative; overflow: hidden; }
+.page-header::before { content: ''; position: absolute; top: -30%; right: -5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(232,83,26,0.1) 0%, transparent 70%); pointer-events: none; }
+.page-breadcrumb { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.4); margin-bottom: 18px; position: relative; z-index: 1; }
+.page-breadcrumb a { color: rgba(240,237,230,0.4); text-decoration: none; transition: color 0.2s; }
+.page-breadcrumb a:hover { color: #E8531A; }
+.page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 84px); line-height: 0.92; letter-spacing: 0.02em; color: #f0ede6; margin-bottom: 20px; position: relative; z-index: 1; }
+.page-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(240,237,230,0.55); max-width: 560px; position: relative; z-index: 1; }
+
+/* ============ FORMS ============ */
+.form-section { padding: 64px 48px 100px; max-width: 760px; margin: 0 auto; }
+.form-group { margin-bottom: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.55); margin-bottom: 10px; }
+.form-label .required { color: #E8531A; margin-left: 3px; }
+.form-input, .form-select, .form-textarea { width: 100%; padding: 14px 16px; background: #101010; border: 1px solid rgba(240,237,230,0.15); color: #f0ede6; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; transition: border-color 0.2s, background 0.2s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #E8531A; background: #131313; }
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(240,237,230,0.25); }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8531A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+.form-select option { background: #101010; }
+.form-textarea { resize: vertical; min-height: 120px; font-family: 'DM Sans', sans-serif; }
+.form-checkbox-row { display: flex; align-items: flex-start; gap: 12px; }
+.form-checkbox-row input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: #E8531A; cursor: pointer; }
+.form-checkbox-row label { font-size: 13px; font-weight: 300; line-height: 1.6; color: rgba(240,237,230,0.6); cursor: pointer; }
+.form-fieldset { border: 1px solid rgba(240,237,230,0.1); padding: 24px; margin-bottom: 28px; }
+.form-fieldset-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.08em; color: #E8531A; margin-bottom: 18px; }
+.form-submit { width: 100%; padding: 17px; background: #E8531A; color: #fff; border: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 12px; }
+.form-submit:hover { background: #c94215; }
+.form-note { font-size: 12px; color: rgba(240,237,230,0.35); line-height: 1.7; margin-top: 24px; text-align: center; }
+.form-divider { height: 1px; background: rgba(240,237,230,0.08); margin: 40px 0; }
+.form-progress { display: flex; gap: 6px; margin-bottom: 40px; }
+.form-progress-step { flex: 1; height: 3px; background: rgba(240,237,230,0.1); }
+.form-progress-step.active { background: #E8531A; }
+@media (max-width: 700px) { .form-row { grid-template-columns: 1fr; } }
+
+/* ============ FOOTER ============ */
+.footer-main { padding: 56px 48px 32px; border-top: 1px solid rgba(240,237,230,0.07); display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 40px; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; color: #f0ede6; margin-bottom: 12px; }
+.footer-logo span { color: #E8531A; }
+.footer-tagline { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.36); line-height: 1.75; max-width: 220px; }
+.footer-col-title { font-size: 9px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,237,230,0.32); margin-bottom: 16px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; font-weight: 300; color: rgba(240,237,230,0.52); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #f0ede6; }
+.footer-bottom { padding: 20px 48px; border-top: 1px solid rgba(240,237,230,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: 10px; color: rgba(240,237,230,0.26); letter-spacing: 0.05em; }
+.social-row { display: flex; gap: 18px; }
+.social-row a { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,237,230,0.36); text-decoration: none; transition: color 0.2s; }
+.social-row a:hover { color: #E8531A; }
+@media (max-width: 900px) { .footer-main { grid-template-columns: 1fr 1fr; } }
+
+/* ============ SHARED BUTTONS ============ */
+.btn-primary { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: #E8531A; color: #fff; text-decoration: none; display: inline-block; transition: background 0.2s; border: none; cursor: pointer; }
+.btn-primary:hover { background: #c94215; }
+.btn-ghost { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; background: transparent; color: rgba(240,237,230,0.7); border: 1px solid rgba(240,237,230,0.22); text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: rgba(240,237,230,0.6); color: #f0ede6; }
+
+
+  .divisions-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .division-chip { padding: 9px 16px; border: 1px solid rgba(240,237,230,0.15); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(240,237,230,0.5); }
+  .info-callout { background: rgba(232,83,26,0.06); border: 1px solid rgba(232,83,26,0.2); padding: 24px 28px; margin-bottom: 40px; }
+  .info-callout-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.06em; color: #E8531A; margin-bottom: 10px; }
+  .info-callout p { font-size: 13px; font-weight: 300; line-height: 1.75; color: rgba(240,237,230,0.6); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">NYC<span> IMPACT</span></a>
+  <ul class="nav-links">
+    <li class="nav-item"><a href="index.html">Home</a></li>
+    <li class="nav-item has-dropdown">
+      <a href="about-us.html">About Us</a>
+      <div class="nav-dropdown">
+        <a href="about-us.html">About Us</a>
+        <a href="support-us.html">Support Us</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="events.html">Events</a>
+      <div class="nav-dropdown">
+        <a href="open-gym.html">Open Gym</a>
+        <a href="chinatown-classic.html">Chinatown Classic</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="nacivt.html">NACIVT</a>
+      <div class="nav-dropdown">
+        <a href="nacivt-9man-tryouts.html">9-Man Tryouts</a>
+        <a href="nacivt-women-tryouts.html">Women Tryouts</a>
+        <a href="nacivt-fundraiser.html">Program Fundraiser</a>
+        <a href="9-man.html">9-Man</a>
+        <a href="booming-impact.html">Booming Impact</a>
+        <a href="dynamic-impact.html">Dynamic Impact</a>
+        <a href="synergy-impact.html">Synergy Impact</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="boys-volleyball.html" class="current">Boys</a>
+      <div class="nav-dropdown">
+        <a href="boys-tryout.html">Tryout Registration</a>
+        <a href="boys-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="boys-season-info.html">Season Info &amp; Fees</a>
+        <a href="pay-club-fee.html">Make A Payment</a>
+        <a href="aau-nationals.html">AAU Jr Nationals</a>
+        <a href="coaches-directory.html">Coaches Directory</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="girls-volleyball.html">Girls</a>
+      <div class="nav-dropdown">
+        <a href="girls-tryouts.html">Tryout Registration</a>
+        <a href="girls-skills-clinic.html">Positional Skills Clinic</a>
+        <a href="girls-season-info.html">Season Info &amp; Fees</a>
+        <a href="tryout-checklist.html">Tryout Check List</a>
+        <a href="girls-practice-schedule.html">Practice Schedule</a>
+        <a href="payment.html">Make A Payment</a>
+        <a href="tournament-schedule.html">Tournament Schedule</a>
+        <a href="team-14u-black.html">14U Black</a>
+        <a href="team-15u-black.html">15U Black</a>
+        <a href="team-16u-black.html">16U Black</a>
+        <a href="team-17u-orange.html">17U Orange</a>
+        <a href="team-17u-black.html">17U Black</a>
+        <a href="chaperone.html">Chaperone Guide</a>
+        <a href="travel-policy.html">Travel Policy</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="programs.html">Programs</a>
+      <div class="nav-dropdown">
+        <a href="volley-kids.html">Volley Kids</a>
+        <a href="geva-developmental.html">GEVA Developmental Team</a>
+        <a href="private-lesson.html">Private Lesson</a>
+      </div>
+    </li>
+    <li class="nav-item has-dropdown">
+      <a href="resources.html">Resources</a>
+      <div class="nav-dropdown">
+        <a href="mental-health-support.html">Mental Health Support</a>
+        <a href="incident.html">Incident Report</a>
+        <a href="forms.html">Forms</a>
+        <a href="usav-registration.html">USA Volleyball Registration</a>
+        <a href="safesport.html">SafeSport</a>
+        <a href="guides-for-parent.html">Guides for Parent</a>
+        <a href="club-policy.html">Club Policy</a>
+        <a href="covid-illness-injury.html">COVID/Illness/Injury</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="contact-us.html">Contact</a></li>
+  </ul>
+  <a href="donations.html" class="nav-cta">Donate</a>
+</nav>
+
+<header class="page-header">
+  <div class="page-breadcrumb"><a href="index.html">Home</a> / <a href="boys-volleyball.html">Boys</a> / Tryout Registration</div>
+  <h1 class="page-title">Boys Tryout<br>Registration.</h1>
+  <p class="page-sub">Ready to compete? Fill out the form below to register for the 2026 Boys Club tryouts. All divisions, 14U through 18U National.</p>
+</header>
+
+<section class="form-section">
+
+  <div class="info-callout">
+    <div class="info-callout-title">Before You Register</div>
+    <p>Tryouts are open to all skill levels. Please arrive 15 minutes early in athletic wear with both indoor and outdoor shoes. A signed waiver is required on the day of tryouts &mdash; bring a printed copy or complete it on-site.</p>
+  </div>
+
+  <form>
+    <div class="form-fieldset">
+      <div class="form-fieldset-title">Athlete Information</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name<span class="required">*</span></label>
+          <input type="text" class="form-input" placeholder="First name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name<span class="required">*</span></label>
+          <input type="text" class="form-input" placeholder="Last name" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Date of Birth<span class="required">*</span></label>
+          <input type="date" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Grade Level<span class="required">*</span></label>
+          <select class="form-select" required>
+            <option value="">Select grade</option>
+            <option>7th Grade</option>
+            <option>8th Grade</option>
+            <option>9th Grade</option>
+            <option>10th Grade</option>
+            <option>11th Grade</option>
+            <option>12th Grade</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Age Division You're Trying Out For<span class="required">*</span></label>
+        <select class="form-select" required>
+          <option value="">Select division</option>
+          <option>14U</option>
+          <option>15U Club</option>
+          <option>16U Club</option>
+          <option>17U Premier / National</option>
+          <option>18U Division</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Primary Position</label>
+        <select class="form-select">
+          <option value="">Select position (if known)</option>
+          <option>Outside Hitter</option>
+          <option>Middle Blocker</option>
+          <option>Setter</option>
+          <option>Opposite / Right Side</option>
+          <option>Libero / Defensive Specialist</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Years of Volleyball Experience</label>
+        <select class="form-select">
+          <option value="">Select experience level</option>
+          <option>First time playing</option>
+          <option>Less than 1 year</option>
+          <option>1&ndash;2 years</option>
+          <option>3&ndash;4 years</option>
+          <option>5+ years</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-fieldset">
+      <div class="form-fieldset-title">Parent / Guardian Contact</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Parent/Guardian Name<span class="required">*</span></label>
+          <input type="text" class="form-input" placeholder="Full name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Relationship to Athlete<span class="required">*</span></label>
+          <input type="text" class="form-input" placeholder="e.g. Mother, Father, Guardian" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email<span class="required">*</span></label>
+          <input type="email" class="form-input" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number<span class="required">*</span></label>
+          <input type="tel" class="form-input" placeholder="(555) 555-5555" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Emergency Contact (if different from above)</label>
+        <input type="text" class="form-input" placeholder="Name and phone number">
+      </div>
+    </div>
+
+    <div class="form-fieldset">
+      <div class="form-fieldset-title">Health &amp; Additional Info</div>
+
+      <div class="form-group">
+        <label class="form-label">Medical Conditions, Allergies, or Injuries We Should Know About</label>
+        <textarea class="form-textarea" placeholder="List any relevant medical information, or write &quot;None&quot;"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">How Did You Hear About NYC Impact?</label>
+        <select class="form-select">
+          <option value="">Select an option</option>
+          <option>Instagram / Social Media</option>
+          <option>Friend or teammate</option>
+          <option>School</option>
+          <option>Chinatown Classic / Tournament</option>
+          <option>Returning athlete</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group form-checkbox-row">
+      <input type="checkbox" id="waiver" required>
+      <label for="waiver">I understand that a signed liability waiver is required before participating in tryouts, and I agree to bring a completed waiver or complete one on-site.</label>
+    </div>
+
+    <div class="form-group form-checkbox-row">
+      <input type="checkbox" id="updates">
+      <label for="updates">Keep me updated on NYC Impact news, tryout dates, and program announcements via email.</label>
+    </div>
+
+    <button type="submit" class="form-submit">Submit Registration</button>
+    <p class="form-note">Questions about tryouts? Reach out via our <a href="contact-us.html" style="color:#E8531A;">Contact page</a> or email us directly. We'll follow up with tryout dates and location within 3&ndash;5 business days.</p>
+  </form>
+
+</section>
+
+<footer>
+<div class="footer-main">
+  <div>
+    <div class="footer-logo">NYC<span> IMPACT</span></div>
+    <p class="footer-tagline">A nonprofit urban volleyball club building athletes and community across New York City since 2011.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Boys</div>
+    <ul class="footer-links">
+      <li><a href="boys-volleyball.html">Program Overview</a></li>
+      <li><a href="boys-tryout.html">Tryout Registration</a></li>
+      <li><a href="boys-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="coaches-directory.html">Coaches Directory</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Girls</div>
+    <ul class="footer-links">
+      <li><a href="girls-volleyball.html">Program Overview</a></li>
+      <li><a href="girls-tryouts.html">Tryout Registration</a></li>
+      <li><a href="girls-season-info.html">Season Info &amp; Fees</a></li>
+      <li><a href="tournament-schedule.html">Tournament Schedule</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Club</div>
+    <ul class="footer-links">
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
+      <li><a href="donations.html">Donate</a></li>
+    </ul>
+  </div>
+</div>
+<div class="footer-bottom">
+  <span class="footer-copy">&copy; 2026 NYC Impact Sports Inc. All rights reserved.</span>
+  <div class="social-row">
+    <a href="https://www.facebook.com/pages/Impact-Volleyball-Club-NYC/180746462017160" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/nycimpact/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/user/ImpactVB" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div>
+</footer>
+
+</body>
+</html>
